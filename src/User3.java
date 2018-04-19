@@ -18,6 +18,7 @@ public class User3 {
     private BigInteger ZPre;
 
     // Xi = (Zi+1/Zi-1) ^ randomNumber
+    // (Zi+1/Zi-1)不是表示整数的除法, 需要用Zi+1乘以Zi-1模p的逆元
     private BigInteger[] Xi;
 
     public User3() {}
@@ -27,7 +28,6 @@ public class User3 {
         this.g = new BigInteger(g.toString());
         BigInteger n = p.subtract(new BigInteger("2"));
         do {
-            // 这里的randomNumber可能需要修改, 否则计算出的Xi有些都为1
             randomNumber = BigInteger.probablePrime(p.bitLength(), new SecureRandom());
         } while (randomNumber.compareTo(n) >= 0);
         Zi = DH.quickPower(g, randomNumber, p);
