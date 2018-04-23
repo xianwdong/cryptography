@@ -1,6 +1,9 @@
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import static common.Util.getOriginalRoot;
+import static common.Util.quickPower;
+
 /**
  * @author dxw
  * @date 2018/4/18
@@ -20,7 +23,7 @@ public class BD {
         BigInteger[] XArr = new BigInteger[n];
         for (int i = 0; i < n; ++i) {
             BigInteger temp = users[i].getZPre().modInverse(p);
-            XArr[i] = DH.quickPower(users[i].getZNext().multiply(temp).mod(p), users[i].getRandomNumber(), p);
+            XArr[i] = quickPower(users[i].getZNext().multiply(temp).mod(p), users[i].getRandomNumber(), p);
             users[i].setXi(XArr);
         }
     }
@@ -36,7 +39,7 @@ public class BD {
             for (i = 1; i <= n - 1; ++i) {
                 result = result.multiply(XArr[(i + j - 1) % n].pow(n - i)).mod(p);
             }
-            result = result.multiply(DH.quickPower(users[j].getZPre().pow(n), users[j].getRandomNumber(), p)).mod(p);
+            result = result.multiply(quickPower(users[j].getZPre().pow(n), users[j].getRandomNumber(), p)).mod(p);
             System.out.println(result);
         }
 
@@ -47,7 +50,7 @@ public class BD {
         int n = 5;
         int length = 512;
         BigInteger p = BigInteger.probablePrime(length, new SecureRandom());
-        BigInteger g = DH.getOriginalRoot(p, length);
+        BigInteger g = getOriginalRoot(p, length);
         User3[] users = new User3[n];
         for (int i = 0; i < n; ++i) {
             users[i] = new User3(p, g);
@@ -66,7 +69,7 @@ public class BD {
         }
         BigInteger result = new BigInteger("1");
         for (int i = 0; i < n; ++i) {
-            result = result.multiply(DH.quickPower(g, rr[i], p)).mod(p);
+            result = result.multiply(quickPower(g, rr[i], p)).mod(p);
         }
         System.out.println(result);
     }

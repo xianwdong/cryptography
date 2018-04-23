@@ -1,6 +1,8 @@
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import static common.Util.quickPower;
+
 /**
  * @author dxw
  * @date 2018/4/18
@@ -30,7 +32,7 @@ public class User3 {
         do {
             randomNumber = BigInteger.probablePrime(p.bitLength(), new SecureRandom());
         } while (randomNumber.compareTo(n) >= 0);
-        Zi = DH.quickPower(g, randomNumber, p);
+        Zi = quickPower(g, randomNumber, p);
     }
 
     public BigInteger getP() {

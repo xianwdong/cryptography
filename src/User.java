@@ -1,6 +1,8 @@
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import static common.Util.quickPower;
+
 /**
  * @author dxw
  * @date 2018/4/16
@@ -23,7 +25,7 @@ public class User {
             // 这里的randomNumber没有必要用质数
             randomNumber = BigInteger.probablePrime(p.bitLength(), new SecureRandom());
         } while (randomNumber.compareTo(n) >= 0);
-        publicKey = DH.quickPower(g, randomNumber, p);
+        publicKey = quickPower(g, randomNumber, p);
     }
 
     public void sendPublicKey(User user) {

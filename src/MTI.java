@@ -3,6 +3,9 @@ import sun.misc.BASE64Encoder;
 import java.math.BigInteger;
 import java.security.*;
 
+import static common.Util.getOriginalRoot;
+import static common.Util.quickPower;
+
 /**
  * @author dxw
  * @date 2018/4/17
@@ -75,15 +78,15 @@ public class MTI {
         // 计算KA
         BigInteger Sb = userA.getCertificateFromOther().getS();
         BigInteger bb = userA.getCertificateFromOther().getB();
-        BigInteger KA = DH.quickPower(Sb, userA.getA(), userA.getP())
-                .multiply(DH.quickPower(userA.getCertificateFromOther().getB(), userA.getRandomNumber(), userA.getP())).mod(userA.getP());
+        BigInteger KA = quickPower(Sb, userA.getA(), userA.getP())
+                .multiply(quickPower(userA.getCertificateFromOther().getB(), userA.getRandomNumber(), userA.getP())).mod(userA.getP());
         System.out.println(KA.toString());
 
         // 计算KB
         BigInteger Sa = userB.getCertificateFromOther().getS();
         BigInteger ba = userB.getCertificateFromOther().getB();
-        BigInteger Kb = DH.quickPower(Sa, userB.getA(), userB.getP())
-                .multiply(DH.quickPower(userB.getCertificateFromOther().getB(), userB.getRandomNumber(), userB.getP())).mod(userB.getP());
+        BigInteger Kb = quickPower(Sa, userB.getA(), userB.getP())
+                .multiply(quickPower(userB.getCertificateFromOther().getB(), userB.getRandomNumber(), userB.getP())).mod(userB.getP());
         System.out.println(Kb.toString());
     }
 
@@ -91,7 +94,7 @@ public class MTI {
         long t1 = System.currentTimeMillis();
         int length = 512;
         BigInteger p = BigInteger.probablePrime(length, new SecureRandom());
-        BigInteger g = DH.getOriginalRoot(p, length);
+        BigInteger g = getOriginalRoot(p, length);
         User2 userA = new User2(p, g);
         User2 userB = new User2(p, g);
         exchange(userA, userB);

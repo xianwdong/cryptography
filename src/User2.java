@@ -1,10 +1,8 @@
-import sun.plugin2.message.Message;
-
 import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.UUID;
+
+import static common.Util.quickPower;
 
 /**
  * @author dxw
@@ -38,10 +36,10 @@ public class User2 {
         certificate = new Certificate();
         // id和b都是可以公开的
         String id = UUID.randomUUID().toString();
-        BigInteger b = DH.quickPower(g, a, p);
+        BigInteger b = quickPower(g, a, p);
         certificate.setId(id);
         certificate.setB(b);
-        certificate.setS(DH.quickPower(g, randomNumber, p));
+        certificate.setS(quickPower(g, randomNumber, p));
     }
 
     public Certificate getCertificate() {
