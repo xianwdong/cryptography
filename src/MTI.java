@@ -45,14 +45,13 @@ public class MTI {
         certificate1.setSig(new String(userA.getCertificate().getSig()));
         userB.setCertificateFromOther(certificate1);
 
-
         boolean result1 = RSASignature.doCheck(getMd5Code(userB.getCertificateFromOther().getId() +
                         userB.getCertificateFromOther().getB() + userB.getCertificateFromOther().getS()),
                         userB.getCertificateFromOther().getSig(), publicString, "utf-8");
-        /*if (result1 == false) {
+        if (result1 == false) {
             throw new Exception("B验证A的证书失败");
-        }*/
-        System.out.println(result1);
+        }
+        System.out.println("B验证A的证书成功");
 
         // 对B进行签名
         String contentOfB = getMd5Code(userB.getCertificate().getId() + userB.getCertificate().getB() + userB.getCertificate().getS());
@@ -70,23 +69,23 @@ public class MTI {
         boolean result2 = RSASignature.doCheck(getMd5Code(userA.getCertificateFromOther().getId() +
                         userA.getCertificateFromOther().getB() + userA.getCertificateFromOther().getS()),
                 userA.getCertificateFromOther().getSig(), publicString, "utf-8");
-        /*if (result2 == false) {
+        if (result2 == false) {
             throw new Exception("A验证B的证书失败");
-        }*/
-        System.out.println(result2);
+        }
+        System.out.println("A验证B的证书成功");
 
         // 计算KA
         BigInteger Sb = userA.getCertificateFromOther().getS();
         BigInteger bb = userA.getCertificateFromOther().getB();
         BigInteger KA = quickPower(Sb, userA.getA(), userA.getP())
-                .multiply(quickPower(userA.getCertificateFromOther().getB(), userA.getRandomNumber(), userA.getP())).mod(userA.getP());
+                .multiply(quickPower(bb, userA.getRandomNumber(), userA.getP())).mod(userA.getP());
         System.out.println(KA.toString());
 
         // 计算KB
         BigInteger Sa = userB.getCertificateFromOther().getS();
         BigInteger ba = userB.getCertificateFromOther().getB();
         BigInteger Kb = quickPower(Sa, userB.getA(), userB.getP())
-                .multiply(quickPower(userB.getCertificateFromOther().getB(), userB.getRandomNumber(), userB.getP())).mod(userB.getP());
+                .multiply(quickPower(ba, userB.getRandomNumber(), userB.getP())).mod(userB.getP());
         System.out.println(Kb.toString());
     }
 
