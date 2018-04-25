@@ -46,10 +46,6 @@ public class User2 {
         return certificate;
     }
 
-    public void setCertificate(Certificate certificate) {
-        this.certificate = certificate;
-    }
-
     public void setCertificateFromOther(Certificate certificateFromOther) {
         this.certificateFromOther = certificateFromOther;
     }
@@ -74,7 +70,7 @@ public class User2 {
 class Certificate {
     private String id;
     private BigInteger b;
-    // S = a ^ randomNumber mod p
+    // S = g ^ randomNumber mod p
     private BigInteger S;
     private String sig;
 

@@ -1,10 +1,7 @@
-import sun.misc.BASE64Encoder;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.security.auth.DestroyFailedException;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
@@ -85,14 +82,15 @@ public class RSA {
         return null;
     }
 
-    public static void main(String[] args) throws DestroyFailedException {
+    public static void main(String[] args) {
         initKey(512);
         String str = "你好";
+        System.out.println("RSA加密前的内容: " + str);
         byte[] bytes = encrypt(str, publicKey);
         String hex = AES.parseByte2HexStr(bytes);
-
+        System.out.println("RSA加密后的内容: " + hex);
         byte[] result = decrypt(bytes, privateKey);
-        System.out.println(new String(result));
+        System.out.println("RSA解密后的内容: " + new String(result));
 
     }
 

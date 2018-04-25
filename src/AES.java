@@ -13,13 +13,17 @@ public class AES {
 
     public static void main(String[] args) {
         String str = "你好";
+        System.out.println("AES加密前的内容: " + str);
         byte[] bytes = encrypt(str, "123456");
         String hex = parseByte2HexStr(bytes);
-        System.out.println(hex);
+        System.out.println("AES加密后的内容: " + hex);
         byte[] result = decrypt(bytes, "123456");
-        System.out.println(new String(result));
+        System.out.println("AES解密后的内容: " + new String(result));
     }
 
+    /*
+    * AES加密过程
+    * */
     public static byte[] encrypt(String content, String symmetricKey) {
         try {
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
@@ -48,6 +52,9 @@ public class AES {
         return null;
     }
 
+    /*
+    * AES解密过程
+    * */
     public static byte[] decrypt(byte[] content, String symmetricKey) {
         try {
             KeyGenerator kgen = KeyGenerator.getInstance("AES");

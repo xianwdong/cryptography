@@ -90,15 +90,12 @@ public class MTI {
     }
 
     public static void main(String[] args) throws Exception {
-        long t1 = System.currentTimeMillis();
         int length = 512;
         BigInteger p = BigInteger.probablePrime(length, new SecureRandom());
         BigInteger g = getOriginalRoot(p, length);
         User2 userA = new User2(p, g);
         User2 userB = new User2(p, g);
         exchange(userA, userB);
-        long t2 = System.currentTimeMillis();
-        System.out.println(t2 - t1);
     }
 
 }

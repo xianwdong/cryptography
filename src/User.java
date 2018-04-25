@@ -15,7 +15,6 @@ public class User {
     private BigInteger randomNumber;    // random number a for g ^ a mod p 1 <= a <= p - 2
     private BigInteger publicKey;       // g ^ a mod p
     private BigInteger publicKeyFromOther;
-    private BigInteger symmetricKey;
 
     public User(BigInteger p, BigInteger g) {
         this.p = new BigInteger(p.toString());
