@@ -4,11 +4,6 @@ import java.util.UUID;
 
 import static common.Util.quickPower;
 
-/**
- * @author dxw
- * @date 2018/4/17
- * user for MTI
- */
 public class User2 {
 
     private BigInteger p;

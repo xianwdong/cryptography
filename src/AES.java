@@ -5,10 +5,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-/**
- * @author dxw
- * @date 2018/4/17
- */
 public class AES {
 
     public static void main(String[] args) {

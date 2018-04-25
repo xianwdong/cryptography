@@ -4,10 +4,6 @@ import java.security.SecureRandom;
 import static common.Util.getOriginalRoot;
 import static common.Util.quickPower;
 
-/**
- * @author dxw
- * @date 2018/4/16
- */
 public class DH {
 
     public static BigInteger getSymmetricKey(User userA, User userB) throws Exception {

@@ -7,10 +7,6 @@ import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
-/**
- * @author dxw
- * @date 2018/4/17
- */
 public class RSA {
 
     private static RSAPrivateKey privateKey;

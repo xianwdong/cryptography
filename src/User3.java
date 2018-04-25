@@ -3,11 +3,6 @@ import java.security.SecureRandom;
 
 import static common.Util.quickPower;
 
-/**
- * @author dxw
- * @date 2018/4/18
- * User for BD(n-DH)
- */
 public class User3 {
 
     private BigInteger p;

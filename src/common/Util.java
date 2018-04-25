@@ -2,10 +2,6 @@ package common;
 
 import java.math.BigInteger;
 
-/**
- * @author dxw
- * @date 2018/4/23
- */
 public final class Util {
 
     // cal a ^ b mod c

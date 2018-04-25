@@ -4,10 +4,6 @@ import java.security.SecureRandom;
 import static common.Util.getOriginalRoot;
 import static common.Util.quickPower;
 
-/**
- * @author dxw
- * @date 2018/4/18
- */
 public class BD {
 
     public static void broadcastZ(User3[] users) {

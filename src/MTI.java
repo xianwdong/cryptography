@@ -6,10 +6,6 @@ import java.security.*;
 import static common.Util.getOriginalRoot;
 import static common.Util.quickPower;
 
-/**
- * @author dxw
- * @date 2018/4/17
- */
 public class MTI {
 
     public static String getMd5Code(String message) {
