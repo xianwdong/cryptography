@@ -36,7 +36,7 @@ public class User4 {
     }
 
     public BigInteger getPublicKey() {
-        BigInteger temp = a.multiply(x).mod(p).multiply(x).mod(p);
+        BigInteger temp = quickPower(a, x.multiply(x), p);
         return quickPower(g, temp, p);
     }
 
