@@ -1,3 +1,5 @@
+package BD;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -6,7 +8,7 @@ import static common.Util.quickPower;
 
 public class BD {
 
-    public static void broadcastZ(User3[] users) {
+    public static void broadcastZ(BD.User3[] users) {
         int n = users.length;
         for (int i = 0; i < users.length; ++i) {
             users[(i + 1) % n].setZPre(users[i].getZi());
@@ -14,7 +16,7 @@ public class BD {
         }
     }
 
-    public static void broadcastX(User3[] users, BigInteger p) {
+    public static void broadcastX(BD.User3[] users, BigInteger p) {
         int n = users.length;
         BigInteger[] XArr = new BigInteger[n];
         for (int i = 0; i < n; ++i) {
@@ -24,7 +26,7 @@ public class BD {
         }
     }
 
-    public static BigInteger getK(User3[] users, BigInteger p) {
+    public static BigInteger getK(BD.User3[] users, BigInteger p) {
         int n = users.length;
         BigInteger[] XArr = users[0].getXi();
         BigInteger result = new BigInteger("1");
@@ -44,12 +46,19 @@ public class BD {
 
     public static void main(String[] args) {
         int n = 5;
-        int length = 512;
-        BigInteger p = BigInteger.probablePrime(length, new SecureRandom());
-        BigInteger g = getOriginalRoot(p, length);
-        User3[] users = new User3[n];
+        int length = 128;
+        BigInteger q, p;
+        while (true) {
+            q = BigInteger.probablePrime(length, new SecureRandom());
+            p = q.multiply(new BigInteger("2")).add(new BigInteger("1"));
+            if (p.isProbablePrime(100)) {
+                break;
+            }
+        }
+        BigInteger g = getOriginalRoot(p, q);
+        BD.User3[] users = new BD.User3[n];
         for (int i = 0; i < n; ++i) {
-            users[i] = new User3(p, g);
+            users[i] = new BD.User3(p, g);
         }
         broadcastZ(users);
         broadcastX(users, p);

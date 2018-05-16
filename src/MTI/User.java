@@ -1,10 +1,12 @@
+package MTI;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.UUID;
 
 import static common.Util.quickPower;
 
-public class User2 {
+public class User {
 
     private BigInteger p;
     private BigInteger g;
@@ -15,9 +17,9 @@ public class User2 {
     private Certificate certificate;
     private Certificate certificateFromOther;
 
-    public User2() {}
+    public User() {}
 
-    public User2(BigInteger p, BigInteger g) {
+    public User(BigInteger p, BigInteger g) {
         this.p = new BigInteger(p.toString());
         this.g = new BigInteger(g.toString());
         BigInteger n = p.subtract(new BigInteger("2"));

@@ -1,3 +1,7 @@
+package MTI;
+
+import base.AES;
+import base.RSA;
 import sun.misc.BASE64Encoder;
 
 import java.math.BigInteger;
@@ -21,7 +25,7 @@ public class MTI {
         return null;
     }
 
-    public static void exchange(User2 userA, User2 userB) throws Exception {
+    public static void exchange(MTI.User2 userA, MTI.User2 userB) throws Exception {
         KeyPair keyPair = RSA.initKey(512);
         PrivateKey privateKey = keyPair.getPrivate();
         PublicKey publicKey = keyPair.getPublic();
@@ -34,7 +38,7 @@ public class MTI {
         userA.getCertificate().setSig(sigOfA);
 
         // 设置B的CertificateFromOther
-        Certificate certificate1 = new Certificate();
+        MTI.Certificate certificate1 = new MTI.Certificate();
         certificate1.setId(new String(userA.getCertificate().getId()));
         certificate1.setB(new BigInteger(userA.getCertificate().getB().toString()));
         certificate1.setS(new BigInteger(userA.getCertificate().getS().toString()));
@@ -55,7 +59,7 @@ public class MTI {
         userB.getCertificate().setSig(sigOfB);
 
         // 设置A的CertificateFromOther
-        Certificate certificate2 = new Certificate();
+        MTI.Certificate certificate2 = new MTI.Certificate();
         certificate2.setId(userB.getCertificate().getId());
         certificate2.setB(new BigInteger(userB.getCertificate().getB().toString()));
         certificate2.setS(new BigInteger(userB.getCertificate().getS().toString()));
@@ -89,8 +93,8 @@ public class MTI {
         int length = 512;
         BigInteger p = BigInteger.probablePrime(length, new SecureRandom());
         BigInteger g = getOriginalRoot(p, length);
-        User2 userA = new User2(p, g);
-        User2 userB = new User2(p, g);
+        MTI.User2 userA = new MTI.User2(p, g);
+        MTI.User2 userB = new MTI.User2(p, g);
         exchange(userA, userB);
     }
 

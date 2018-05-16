@@ -1,3 +1,5 @@
+package DH;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -6,7 +8,7 @@ import static common.Util.quickPower;
 
 public class DH {
 
-    public static BigInteger getSymmetricKey(User userA, User userB) throws Exception {
+    public static BigInteger getSymmetricKey(DH.User userA, DH.User userB) throws Exception {
         userA.sendPublicKey(userB);
         userB.sendPublicKey(userA);
         BigInteger symmetricKey1 = quickPower(userA.getPublicKeyFromOther(), userA.getRandomNumber(),
@@ -24,8 +26,8 @@ public class DH {
         int length = 512;
         BigInteger p = BigInteger.probablePrime(length, new SecureRandom());
         BigInteger g = getOriginalRoot(p, length);
-        User userA = new User(p, g);
-        User userB = new User(p, g);
+        DH.User userA = new DH.User(p, g);
+        DH.User userB = new DH.User(p, g);
 
         System.out.println(DH.getSymmetricKey(userA, userB));
 

@@ -1,7 +1,7 @@
-import java.math.BigDecimal;
+package newprotocol;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Arrays;
 
 import static common.Util.getOriginalRoot;
 import static common.Util.quickPower;

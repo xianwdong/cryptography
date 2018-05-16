@@ -1,3 +1,5 @@
+package newprotocol;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.LinkedList;
@@ -8,7 +10,7 @@ import static common.Util.quickPower;
  * @author dxw
  * @date 2018/5/6
  */
-public class User4 {
+public class User {
 
     // public值
     private BigInteger p;
@@ -29,9 +31,9 @@ public class User4 {
     // 存储所有的公钥
     private LinkedList<BigInteger> dataList = new LinkedList<>();
 
-    public User4() {}
+    public User() {}
 
-    public User4(BigInteger p, BigInteger g, BigInteger q) {
+    public User(BigInteger p, BigInteger g, BigInteger q) {
         this.p = new BigInteger(p.toString());
         this.g = new BigInteger(g.toString());
         this.q = new BigInteger(q.toString());

@@ -1,9 +1,11 @@
+package BD;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import static common.Util.quickPower;
 
-public class User3 {
+public class User {
 
     private BigInteger p;
     private BigInteger g;
@@ -18,9 +20,9 @@ public class User3 {
     // (Zi+1/Zi-1)不是表示整数的除法, 需要用Zi+1乘以Zi-1模p的逆元
     private BigInteger[] Xi;
 
-    public User3() {}
+    public User() {}
 
-    public User3(BigInteger p, BigInteger g) {
+    public User(BigInteger p, BigInteger g) {
         this.p = new BigInteger(p.toString());
         this.g = new BigInteger(g.toString());
         BigInteger n = p.subtract(new BigInteger("2"));
