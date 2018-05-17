@@ -15,7 +15,7 @@ public class Main {
     /*
      * user1为发送者，user2为接收者
      * */
-    public static void sendData(User4 user1, User4 user2) {
+    public static void sendData(User user1, User user2) {
         BigInteger p = user1.getP();
         BigInteger q = user1.getQ();
         // System.out.println("加密前的数据: " + user1.getData());
@@ -48,9 +48,9 @@ public class Main {
         data.setQ(q.toString());
         BigInteger g = getOriginalRoot(p, q);
         data.setG(g.toString());
-        User4[] users = new User4[n];
+        User[] users = new User[n];
         for (int i = 0; i < users.length; ++i) {
-            users[i] = new User4(p, g, q);
+            users[i] = new User(p, g, q);
         }
         for (int i = 0; i < users.length; ++i) {
             for (int j = 0; j < users.length; ++j) {
@@ -71,7 +71,7 @@ public class Main {
         long sum1 = 0, sum2 = 0;
         for (int times = 0; times < 50; ++times) {
             long t1 = System.currentTimeMillis();
-            System.out.println("程序开始运行时间t1: " + t1);
+            //System.out.println("程序开始运行时间t1: " + t1);
             int length = 256;
             BigInteger q, p;
             while (true) {
@@ -82,12 +82,12 @@ public class Main {
                 }
             }
             BigInteger g = getOriginalRoot(p, q);
-            User4[] users = new User4[5];
+            User[] users = new User[5];
             for (int i = 0; i < users.length; ++i) {
-                users[i] = new User4(p, g, q);
+                users[i] = new User(p, g, q);
             }
             long t2 = System.currentTimeMillis();
-            System.out.println("密钥协商计算开始时间t2: " + t2);
+            //System.out.println("密钥协商计算开始时间t2: " + t2);
             for (int i = 0; i < users.length; ++i) {
                 for (int j = 0; j < users.length; ++j) {
                     if (i != j) {
@@ -95,13 +95,15 @@ public class Main {
                     }
                 }
             }
-            long t3 = System.currentTimeMillis();
-            System.out.println("程序结束运行时间t3: " + t3);
-            System.out.println("程序运行总时间t3 - t1: " + (t3 - t1));
-            System.out.println("密钥协商计算总时间t3 - t2: " + (t3 - t2));
+
             for (int i = 0; i < users.length; ++i) {
-                 System.out.println("第" + (i + 1) + "个用户: " + users[i].getCommonKey());
+                 //System.out.println("第" + (i + 1) + "个用户: " + users[i].getCommonKey());
+                users[i].getCommonKey();
             }
+            long t3 = System.currentTimeMillis();
+            /*System.out.println("程序结束运行时间t3: " + t3);
+            System.out.println("程序运行总时间t3 - t1: " + (t3 - t1));
+            System.out.println("密钥协商计算总时间t3 - t2: " + (t3 - t2));*/
             sum1 += t3 - t1;
             sum2 += t3 - t2;
         }
@@ -127,9 +129,9 @@ public class Main {
             // System.out.println("q : " + q);
             BigInteger g = getOriginalRoot(p, q);
             // System.out.println("g : " + g);
-            User4[] users = new User4[5];
+            User[] users = new User[5];
             for (int i = 0; i < users.length; ++i) {
-                users[i] = new User4(p, g, q);
+                users[i] = new User(p, g, q);
             }
             for (int i = 0; i < users.length; ++i) {
                 for (int j = 0; j < users.length; ++j) {

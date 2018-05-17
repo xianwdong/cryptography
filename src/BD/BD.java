@@ -8,7 +8,7 @@ import static common.Util.quickPower;
 
 public class BD {
 
-    public static void broadcastZ(BD.User3[] users) {
+    public static void broadcastZ(User[] users) {
         int n = users.length;
         for (int i = 0; i < users.length; ++i) {
             users[(i + 1) % n].setZPre(users[i].getZi());
@@ -16,17 +16,19 @@ public class BD {
         }
     }
 
-    public static void broadcastX(BD.User3[] users, BigInteger p) {
+    public static void broadcastX(User[] users, BigInteger p) {
         int n = users.length;
         BigInteger[] XArr = new BigInteger[n];
         for (int i = 0; i < n; ++i) {
             BigInteger temp = users[i].getZPre().modInverse(p);
             XArr[i] = quickPower(users[i].getZNext().multiply(temp).mod(p), users[i].getRandomNumber(), p);
+        }
+        for (int i = 0; i < n; ++i) {
             users[i].setXi(XArr);
         }
     }
 
-    public static BigInteger getK(BD.User3[] users, BigInteger p) {
+    public static BigInteger getK(User[] users, BigInteger p) {
         int n = users.length;
         BigInteger[] XArr = users[0].getXi();
         BigInteger result = new BigInteger("1");
@@ -45,38 +47,48 @@ public class BD {
     }
 
     public static void main(String[] args) {
-        int n = 5;
-        int length = 128;
-        BigInteger q, p;
-        while (true) {
-            q = BigInteger.probablePrime(length, new SecureRandom());
-            p = q.multiply(new BigInteger("2")).add(new BigInteger("1"));
-            if (p.isProbablePrime(100)) {
-                break;
+        //long sum1 = 0, sum2 = 0;
+        //for (int times = 0; times < 50; ++times) {
+            //long t1 = System.currentTimeMillis();
+            int n = 5;
+            int length = 256;
+            BigInteger q, p;
+            while (true) {
+                q = BigInteger.probablePrime(length, new SecureRandom());
+                p = q.multiply(new BigInteger("2")).add(new BigInteger("1"));
+                if (p.isProbablePrime(100)) {
+                    break;
+                }
             }
-        }
-        BigInteger g = getOriginalRoot(p, q);
-        BD.User3[] users = new BD.User3[n];
-        for (int i = 0; i < n; ++i) {
-            users[i] = new BD.User3(p, g);
-        }
-        broadcastZ(users);
-        broadcastX(users, p);
-        getK(users, p);
+            BigInteger g = getOriginalRoot(p, q);
+            User[] users = new User[n];
+            for (int i = 0; i < n; ++i) {
+                users[i] = new User(p, g);
+            }
+            //long t2 = System.currentTimeMillis();
+            broadcastZ(users);
+            broadcastX(users, p);
+            getK(users, p);
+            //long t3 = System.currentTimeMillis();
 
-        BigInteger[] rr = new BigInteger[n];
-        for (int i = 0; i < n; ++i) {
-            if (i != n - 1) {
-                rr[i] = users[i].getRandomNumber().multiply(users[i + 1].getRandomNumber());
-            } else {
-                rr[i] = users[i].getRandomNumber().multiply(users[0].getRandomNumber());
+            BigInteger[] rr = new BigInteger[n];
+            for (int i = 0; i < n; ++i) {
+                if (i != n - 1) {
+                    rr[i] = users[i].getRandomNumber().multiply(users[i + 1].getRandomNumber());
+                } else {
+                    rr[i] = users[i].getRandomNumber().multiply(users[0].getRandomNumber());
+                }
             }
-        }
-        BigInteger result = new BigInteger("1");
-        for (int i = 0; i < n; ++i) {
-            result = result.multiply(quickPower(g, rr[i], p)).mod(p);
-        }
-        System.out.println("正确的密钥: " + result);
+            BigInteger result = new BigInteger("1");
+            for (int i = 0; i < n; ++i) {
+                result = result.multiply(quickPower(g, rr[i], p)).mod(p);
+            }
+            //sum1 += t3 - t1;
+            //sum2 += t3 - t2;
+            System.out.println("正确的密钥: " + result);
+        //}
+        /*System.out.println(sum1);
+        System.out.println(sum2);*/
     }
 
 }
