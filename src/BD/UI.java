@@ -1,23 +1,26 @@
-package newprotocol;
+package BD;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-/**
- * @author dxw
- * @date 2018/5/16
- */
-public class UI extends JFrame{
+public class UI extends JFrame {
 
     private JPanel contentPane;
     private JTextField textFieldP;
     private JTextField textFieldQ;
     private JTextField textFieldG;
     private JTextArea textArea;
-    private JTextField textFieldNumber;
+    private JTextField textField;
     private JTextField sumTimeLable;
     private JTextField calTimeLable;
 
@@ -79,14 +82,14 @@ public class UI extends JFrame{
         JButton start = new JButton("start");
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                int n = Integer.parseInt(textFieldNumber.getText());
-                Data data = Main.dataForUI(n);
+                int n = Integer.parseInt(textField.getText());
+                Data data = BD.dataForUI(n);
                 textFieldP.setText(data.getP());
                 textFieldQ.setText(data.getQ());
                 textFieldG.setText(data.getG());
-                textArea.setText(data.getMessage());
                 sumTimeLable.setText(data.getSumTime());
                 calTimeLable.setText(data.getCalTime());
+                textArea.setText(data.getMessage());
             }
         });
         start.setBounds(675, 53, 63, 41);
@@ -95,18 +98,15 @@ public class UI extends JFrame{
         textArea = new JTextArea();
         textArea.setBounds(20, 106, 700, 160);
         contentPane.add(textArea);
-        //JScrollPane scrollPane = new JScrollPane(textArea);
-        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        contentPane.add(textArea);
 
-        JLabel label = new JLabel("输入用户数");
-        label.setBounds(642, 14, 74, 15);
+        JLabel label = new JLabel("\u8F93\u5165\u7528\u6237\u6570\u76EE");
+        label.setBounds(642, 14, 96, 15);
         contentPane.add(label);
 
-        textFieldNumber = new JTextField();
-        textFieldNumber.setBounds(718, 11, 30, 21);
-        contentPane.add(textFieldNumber);
-        textFieldNumber.setColumns(10);
+        textField = new JTextField();
+        textField.setBounds(732, 11, 30, 21);
+        contentPane.add(textField);
+        textField.setColumns(10);
 
         JLabel sumTime = new JLabel("\u7A0B\u5E8F\u8FD0\u884C\u65F6\u95F4");
         sumTime.setBounds(10, 276, 82, 22);
@@ -126,5 +126,6 @@ public class UI extends JFrame{
         calTimeLable.setBounds(102, 308, 108, 21);
         contentPane.add(calTimeLable);
     }
-
 }
+
+

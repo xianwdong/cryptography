@@ -88,3 +88,60 @@ public class User {
         Xi = xi;
     }
 }
+
+class Data {
+    String p;
+    String q;
+    String g;
+    String message;
+    String sumTime;
+    String calTime;
+
+    public String getP() {
+        return p;
+    }
+
+    public void setP(String p) {
+        this.p = p;
+    }
+
+    public String getQ() {
+        return q;
+    }
+
+    public void setQ(String q) {
+        this.q = q;
+    }
+
+    public String getG() {
+        return g;
+    }
+
+    public void setG(String g) {
+        this.g = g;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getSumTime() {
+        return sumTime;
+    }
+
+    public void setSumTime(String sumTime) {
+        this.sumTime = sumTime;
+    }
+
+    public String getCalTime() {
+        return calTime;
+    }
+
+    public void setCalTime(String calTime) {
+        this.calTime = calTime;
+    }
+}

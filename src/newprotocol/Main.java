@@ -37,6 +37,7 @@ public class Main {
         Data data = new Data();
         int length = 256;
         BigInteger q, p;
+        long t1 = System.currentTimeMillis();
         while (true) {
             q = BigInteger.probablePrime(length, new SecureRandom());
             p = q.multiply(new BigInteger("2")).add(new BigInteger("1"));
@@ -52,6 +53,7 @@ public class Main {
         for (int i = 0; i < users.length; ++i) {
             users[i] = new User(p, g, q);
         }
+        long t2 = System.currentTimeMillis();
         for (int i = 0; i < users.length; ++i) {
             for (int j = 0; j < users.length; ++j) {
                 if (i != j) {
@@ -63,7 +65,11 @@ public class Main {
         for (int i = 0; i < users.length; ++i) {
             message += "第" + (i + 1) + "个用户: " + users[i].getCommonKey() + "\n";
         }
+        long t3 = System.currentTimeMillis();
+
         data.setMessage(message);
+        data.setSumTime(String.valueOf(t3 - t1));
+        data.setCalTime(String.valueOf(t3 - t2));
         return data;
     }
 
@@ -82,7 +88,7 @@ public class Main {
                 }
             }
             BigInteger g = getOriginalRoot(p, q);
-            User[] users = new User[5];
+            User[] users = new User[10];
             for (int i = 0; i < users.length; ++i) {
                 users[i] = new User(p, g, q);
             }
@@ -229,6 +235,8 @@ class Data {
     String q;
     String g;
     String message;
+    String sumTime;
+    String calTime;
 
     public String getP() {
         return p;
@@ -260,5 +268,21 @@ class Data {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getSumTime() {
+        return sumTime;
+    }
+
+    public void setSumTime(String sumTime) {
+        this.sumTime = sumTime;
+    }
+
+    public String getCalTime() {
+        return calTime;
+    }
+
+    public void setCalTime(String calTime) {
+        this.calTime = calTime;
     }
 }

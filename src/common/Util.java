@@ -30,6 +30,7 @@ public final class Util {
                         g.modPow(q, p).intValue() == 1) {
                     continue;
                 } else {
+                    //return g;
                     return g.multiply(g);
                 }
             }
