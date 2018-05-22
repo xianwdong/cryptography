@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import static common.Util.getOriginalRoot;
+import static common.Util.getOriginalRoot2;
 import static common.Util.quickPower;
 
 /**
@@ -47,7 +48,7 @@ public class Main {
         }
         data.setP(p.toString());
         data.setQ(q.toString());
-        BigInteger g = getOriginalRoot(p, q);
+        BigInteger g = getOriginalRoot2(p, q);
         data.setG(g.toString());
         User[] users = new User[n];
         for (int i = 0; i < users.length; ++i) {
@@ -87,7 +88,7 @@ public class Main {
                     break;
                 }
             }
-            BigInteger g = getOriginalRoot(p, q);
+            BigInteger g = getOriginalRoot2(p, q);
             User[] users = new User[10];
             for (int i = 0; i < users.length; ++i) {
                 users[i] = new User(p, g, q);
@@ -116,116 +117,6 @@ public class Main {
         System.out.println(sum1);
         System.out.println(sum2);
 
-    }
-
-    public static void main1(String[] args) {
-
-        int correct = 0, wrong = 0;
-        for (int times = 0; times < 10; ++times) {
-            int length = 256;
-            BigInteger q, p;
-            while (true) {
-                q = BigInteger.probablePrime(length, new SecureRandom());
-                p = q.multiply(new BigInteger("2")).add(new BigInteger("1"));
-                if (p.isProbablePrime(100)) {
-                    break;
-                }
-            }
-            // System.out.println("p : " + p);
-            // System.out.println("q : " + q);
-            BigInteger g = getOriginalRoot(p, q);
-            // System.out.println("g : " + g);
-            User[] users = new User[5];
-            for (int i = 0; i < users.length; ++i) {
-                users[i] = new User(p, g, q);
-            }
-            for (int i = 0; i < users.length; ++i) {
-                for (int j = 0; j < users.length; ++j) {
-                    if (i != j) {
-                        sendData(users[i], users[j]);
-                    //System.out.println(data);
-                    }
-                }
-                //System.out.println("----------------");
-            }
-            int i = 0;
-            for ( ; i < users.length - 1; ++i) {
-                // System.out.println("第" + (i + 1) + "个用户: " + users[i].getCommonKey());
-                if (!users[i].getCommonKey().equals(users[i + 1].getCommonKey())) {
-                    ++wrong;
-                    break;
-                }
-            }
-            if (i == users.length - 1) {
-                ++correct;
-            }
-        }
-        System.out.println("correct : " + correct);
-        System.out.println("wrong : " + wrong);
-    }
-
-
-    public void f(String[] args) {
-
-
-        BigInteger q = new BigInteger("761");
-                //"201593568205072105604726827991920790741");
-
-        BigInteger p = new BigInteger("1523");
-                //"403187136410144211209453655983841581483");
-
-        BigInteger g = new BigInteger("3");
-
-        BigInteger a, x1, x2;
-        BigInteger n = q.subtract(new BigInteger("2"));
-        do {
-            a = new BigInteger(q.bitLength(), new SecureRandom());
-        } while (a.compareTo(n) >= 0);
-        do {
-            x1 = new BigInteger(q.bitLength(), new SecureRandom());
-        } while (x1.compareTo(n) >= 0);
-        do {
-            x2 = new BigInteger(q.bitLength(), new SecureRandom());
-        } while (x2.compareTo(n) >= 0);
-        BigInteger pk =g.modPow(x2,p);  //quickPower(g, x2, p);
-        BigInteger data1 =g.modPow(a.multiply(x1).multiply(x1), p) ;  //quickPower(g, a.multiply(x1).multiply(x1), p);
-        BigInteger data2 = quickPower(pk, a.multiply(x1).multiply(x1), p);
-
-        BigInteger mi = x2.modInverse(q);
-
-        //System.out.println("mi="+mi);
-        BigInteger data3 = data2.modPow(mi, p); //  quickPower(pk, a.multiply(x1).multiply(x1).multiply(mi), p);
-        System.out.println(data1);
-        System.out.println(data3);
-        //System.out.println(g.modPow(a.multiply(x1).multiply(x1).multiply(mi).multiply(x2),p));
-        /*while (true) {
-            BigInteger q = BigInteger.probablePrime(128, new SecureRandom());
-            BigInteger p = q.multiply(new BigInteger("2")).add(new BigInteger("1"));
-            if (p.isProbablePrime(100)) {
-                System.out.println(q);
-
-                System.out.println(p);
-                break;
-            }
-        }*/
-
-
-        /*int length = 512;
-        BigInteger p = BigInteger.probablePrime(length, new SecureRandom());
-        BigInteger g = getOriginalRoot(p, length);
-        User4[] users = new User4[5];
-        for (int i = 0; i < users.length; ++i) {
-            users[i] = new User4(p, g);
-        }
-        for (int i = 0; i < users.length; ++i) {
-            BigInteger publicKey = users[i].getPublicKey();
-            for (int j = 0; j < users.length; ++j) {
-                users[j].getPublicKeyList().add(publicKey);
-            }
-        }
-        for (int i = 0; i < users.length; ++i) {
-            System.out.println("第" + (i + 1) + "个用户: " + users[i].getCommonKey());
-        }*/
     }
 
 }

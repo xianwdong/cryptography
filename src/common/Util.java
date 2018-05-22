@@ -22,6 +22,7 @@ public final class Util {
         return result;
     }
 
+    // Zp的生成元
     public static BigInteger getOriginalRoot(BigInteger p, BigInteger q) {
         for (long j = 0; j < 200000; j++) {
             for (int i = 2; i < 5000; i++) {
@@ -30,19 +31,16 @@ public final class Util {
                         g.modPow(q, p).intValue() == 1) {
                     continue;
                 } else {
-                    //return g;
-                    return g.multiply(g);
+                    return g;
                 }
             }
         }
         return new BigInteger("3");
     }
 
-    public static BigInteger getOriginalRoot(BigInteger p, int length) {
+    // Zp的q阶子群生成元
+    public static BigInteger getOriginalRoot2(BigInteger p, BigInteger q) {
         for (long j = 0; j < 200000; j++) {
-            BigInteger q = BigInteger.probablePrime(length, new SecureRandom());
-            BigInteger pp = BigInteger.valueOf(2).multiply(q).add(BigInteger.valueOf(1));
-            //if (pp.isProbablePrime(1)) {
             for (int i = 2; i < 5000; i++) {
                 BigInteger g = new BigInteger(String.valueOf(i));
                 if (g.modPow(BigInteger.valueOf(2), p).intValue() == 1 ||
@@ -56,34 +54,9 @@ public final class Util {
         return new BigInteger("3");
     }
 
-    public BigInteger SecretKeySwapNext() {
-        try {
-            int bitLength = 512;
-            SecureRandom rnd = new SecureRandom();
-            for (long j = 0; j < 200000; j++) {
-                BigInteger q = BigInteger.probablePrime(bitLength,
-                        new SecureRandom()); //System.out.println("Q="+q);
-                BigInteger p = BigInteger.valueOf(2).multiply(q).add(
-                        BigInteger.valueOf(1)); //System.out.println("P="+p);
-                if (p.isProbablePrime(100)) {
-                    for (int i = 2; i < 5000; i++) {
-                        BigInteger gg = new BigInteger(String.valueOf(i));
-                        if (gg.modPow(BigInteger.valueOf(2), p).intValue() == 1 || gg.
-                                modPow(q, p).intValue() == 1) {
-                            continue;
-                        } else {
-                            return gg.multiply(gg);
-                        }
-                    }
-                    break;
-                } else {
-                    continue;
-                }
-            }
-        } finally {
-            return new BigInteger("2");
-        }
-    }
+
+
+
 
     public static void main(String[] args) {
         BigInteger p = new BigInteger("7");
