@@ -40,9 +40,7 @@ public class BD {
                 result = result.multiply(XArr[(i + j - 1) % n].pow(n - i)).mod(p);
             }
             result = result.multiply(quickPower(users[j].getZPre().pow(n), users[j].getRandomNumber(), p)).mod(p);
-            //System.out.println("第" + (j + 1) + "个用户计算出的密钥: " + result);
         }
-
         return result;
     }
 

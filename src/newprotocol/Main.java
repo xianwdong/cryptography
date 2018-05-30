@@ -19,19 +19,16 @@ public class Main {
     public static void sendData(User user1, User user2) {
         BigInteger p = user1.getP();
         BigInteger q = user1.getQ();
-        // System.out.println("加密前的数据: " + user1.getData());
         // user1先获取user2的公钥
         BigInteger publicKey = user2.getPublicKey();
         // user1用user2的公钥对数据进行加密
         BigInteger X = user1.getX();
         BigInteger index = user1.getA().multiply(X).multiply(X);
         BigInteger data = publicKey.modPow(index, p);
-        //quickPower(publicKey, user1.getA().multiply(user1.getX()).multiply(user1.getX()), p);
         // user2接收数据之后，用私钥对数据进行解密
         BigInteger power = user2.getX().modInverse(q);
         BigInteger originalData = quickPower(data, power, p);
         user2.addData(originalData);
-        // System.out.println("解密后的数据: " + originalData);
     }
 
     public static Data dataForUI(int n) {
@@ -104,7 +101,6 @@ public class Main {
             }
 
             for (int i = 0; i < users.length; ++i) {
-                 //System.out.println("第" + (i + 1) + "个用户: " + users[i].getCommonKey());
                 users[i].getCommonKey();
             }
             long t3 = System.currentTimeMillis();
